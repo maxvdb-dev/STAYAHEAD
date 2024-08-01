@@ -1,0 +1,54 @@
+#!/bin/bash
+
+#SBATCH --job-name=alphafold_prediction
+#SBATCH --time=01:15:00          
+#SBATCH --output=alphafold_%A_%a.out 
+#SBATCH --error=alphafold_%A_%a.err
+#SBATCH --partition gpu         
+#SBATCH --gpus 1            # Request GPU resource
+#SBATCH --ntasks 1                      
+#SBATCH --cpus-per-task 4        
+#SBATCH --array=0-100%50           # Array range and job limit
+
+# Load modules
+module load 2022
+module load AlphaFold/2.3.1-foss-2022a-CUDA-11.7.0
+
+data_root=/projects/2/managed_datasets/AlphaFold
+project_root=./
+fasta_dir=${project_root}/inputs/ba1_100
+
+# Create an array of all fasta files
+FILES=(${fasta_dir}/*.fasta)
+echo $FILES
+
+# Use SLURM_ARRAY_TASK_ID as index to get specific file for this job
+FILE=${FILES[$SLURM_ARRAY_TASK_ID]}
+
+# Extract the filename without the path
+filename=$(basename -- "$FILE")
+
+# Remove the .fasta extension from the filename
+filename_without_ext="${filename%.fasta}"
+
+# Use the modified filename for the output directory
+output_dir="${project_root}/outputs/ba1_100/${filename_without_ext}"
+
+echo $FILE
+
+echo $SLURM_ARRAY_TASK_ID
+
+# Check if file exists to prevent errors in case of non-existent array index
+if [ -f "$FILE" ]; then
+    echo "Running AlphaFold on $FILE"
+    cmd_args="--fasta_paths ${FILE}
+    --output_dir ${output_dir}
+    --db_preset full_dbs 
+    --data_dir ${data_root}
+    --max_template_date 2023-03-20
+    --use_precomputed_msas"
+
+    alphafold ${cmd_args}
+else
+    echo "Skipping job for index $SLURM_ARRAY_TASK_ID, file does not exist."
+fi

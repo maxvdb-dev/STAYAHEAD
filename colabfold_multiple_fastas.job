@@ -1,0 +1,64 @@
+#!/bin/bash
+
+#SBATCH --job-name=alphafold_prediction
+#SBATCH --time=4:00:00          
+#SBATCH --output=alphafold_%A_%a.out 
+#SBATCH --error=alphafold_%A_%a.err
+#SBATCH --partition gpu         
+#SBATCH --gpus 1            # Request GPU resource
+#SBATCH --ntasks 1                      
+#SBATCH --cpus-per-task 4        
+#SBATCH --array=0-49%2           # Array range and job limit
+
+# Load modules
+module load 2022
+module load CUDA/11.7.0
+module load SciPy-bundle/2022.05-foss-2022a
+module load NCCL/2.12.12-GCCcore-11.3.0-CUDA-11.7.0
+module load protobuf/3.19.4-GCCcore-11.3.0
+module load protobuf-python/3.19.4-GCCcore-11.3.0
+module load TensorFlow/2.11.0-foss-2022a-CUDA-11.7.0
+module load Biopython/1.79-foss-2022a
+module load HH-suite/3.3.0-gompi-2022a
+module load HMMER/3.3.2-gompi-2022a
+module load Kalign/3.3.5-GCCcore-11.3.0
+module load jax/0.3.25-foss-2022a-CUDA-11.7.0
+module load OpenMM/7.7.0-foss-2022a-CUDA-11.7.0 
+
+source ./venv/bin/activate
+project_root=./
+fasta_dir=${project_root}/fastas/alt_variants_batch1_done
+
+# Create an array of all fasta files
+FILES=(${fasta_dir}/*.fasta)
+echo $FILES
+
+# Use SLURM_ARRAY_TASK_ID as index to get specific file for this job
+FILE=${FILES[$SLURM_ARRAY_TASK_ID]}
+
+# Extract the filename without the path
+filename=$(basename -- "$FILE")
+
+# Remove the .fasta extension from the filename
+filename_without_ext="${filename%.fasta}"
+
+# Use the modified filename for the output directory
+output_dir="${project_root}/output_alt_var/batch1/${filename_without_ext}"
+
+echo $FILE
+
+echo $SLURM_ARRAY_TASK_ID
+
+# Check if file exists to prevent errors in case of non-existent array index
+if [ -f "$FILE" ]; then
+    echo "Running AlphaFold on $FILE"
+    cmd_args="${FILE}
+    ${output_dir}
+    --data /projects/2/managed_datasets/AlphaFold/ 
+    --num-models 3 
+    --num-recycle 2"
+
+    alphafold ${cmd_args}
+else
+    echo "Skipping job for index $SLURM_ARRAY_TASK_ID, file does not exist."
+fi
