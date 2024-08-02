@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#SBATCH --job-name=esmfold_job
+#SBATCH --time=120:00:00          
+#SBATCH --output=esmfold_%A_%a.out 
+#SBATCH --error=esmfold_%A_%a.err
+#SBATCH --partition gpu         
+#SBATCH --gpus 1            # Request GPU resource
+#SBATCH --ntasks 1                      
+#SBATCH --cpus-per-task 18        
+#SBATCH --array=25-26%2           # Array range and job limit
+
+BATCH_NUM=$(printf "%d" $SLURM_ARRAY_TASK_ID)
+
+TMP_OUTPUT="$TMPDIR/output${BATCH_NUM}"
+
+mkdir -p $TMP_OUTPUT
+
+ZIP_PATH="$HOME/stayahead/project/esmfold/esmfold/inputs/fastas/ACE2_100000/ACE2_${BATCH_NUM}.zip"
+BATCH_DIR="$TMPDIR/batch${BATCH_NUM}"
+
+mkdir -p $BATCH_DIR
+
+unzip $ZIP_PATH -d $BATCH_DIR
+
+source ./venv/bin/activate
+module load 2022
+module load cuDNN/8.6.0.163-CUDA-11.8.0
+cd ./esmfold/
+
+cmd_args="--fastas_folder $BATCH_DIR \
+--output_folder $TMP_OUTPUT"
+
+python esmfold.py ${cmd_args}
+
+ZIP_OUTPUT="$TMP_OUTPUT.zip"
+ZIP_HOME="$HOME/stayahead/project/esmfold/esmfold/outputs/2step/output${BATCH_NUM}.zip"
+
+zip -r $ZIP_OUTPUT $TMP_OUTPUT
+
+mv $ZIP_OUTPUT $ZIP_HOME
+
+rm -r $TMP_OUTPUT
+rm -r $BATCH_DIR
+
+# cp $TMP_DIR/output_${BATCH_NUM}.zip ./outputs/2step/
