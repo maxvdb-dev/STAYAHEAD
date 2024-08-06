@@ -1,0 +1,10 @@
+Best Parameters: {'booster': 'dart', 'lambda': 0.8298246633546335, 'alpha': 0.10430904927169683, 'subsample': 0.7699838459924059, 'colsample_bytree': 0.9151114961610962, 'max_depth': 14, 'min_child_weight': 7, 'eta': 0.03280286147732486, 'gamma': 0.17196744766920907, 'grow_policy': 'depthwise', 'sample_type': 'weighted', 'normalize_type': 'forest', 'rate_drop': 0.1430730610084415, 'skip_drop': 0.5622506251971354}
+Scalers saved to ./outputs/train/ESM/bind_expr_deltas
+bind - Mean Squared Error: 1.0119195883783285
+bind - R-squared: 0.275686150400992
+delta_bind - Mean Squared Error: 1.019603837582578
+delta_bind - R-squared: 0.2701246882833773
+expr - Mean Squared Error: 0.6774052612440471
+expr - R-squared: 0.37924792278945396
+delta_expr - Mean Squared Error: 0.6940775858008491
+delta_expr - R-squared: 0.3639738047133918

@@ -1,0 +1,6 @@
+Best Parameters: {'booster': 'dart', 'lambda': 0.24567058479300352, 'alpha': 0.5334827923950731, 'subsample': 0.8853868085609838, 'colsample_bytree': 0.7549909572575715, 'max_depth': 14, 'min_child_weight': 8, 'eta': 0.874268440418787, 'gamma': 0.9148772547980206, 'grow_policy': 'lossguide', 'sample_type': 'weighted', 'normalize_type': 'tree', 'rate_drop': 0.767464333140969, 'skip_drop': 0.12276209542048402}
+Scalers saved to ./outputs/train/ESM/bind_expr
+bind - Mean Squared Error: 1.131374382586988
+bind - R-squared: 0.19018255620237567
+expr - Mean Squared Error: 0.7001447276997839
+expr - R-squared: 0.3584102177336428

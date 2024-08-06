@@ -1,0 +1,10 @@
+Best Parameters: {'booster': 'gbtree', 'lambda': 0.4492074128732563, 'alpha': 0.7373850276017526, 'subsample': 0.8238654911913489, 'colsample_bytree': 0.9259701606146982, 'max_depth': 11, 'min_child_weight': 1, 'eta': 0.03832093422468762, 'gamma': 0.0016983550116801416, 'grow_policy': 'lossguide'}
+Scalers saved to ./outputs/train/ESM/bind_expr_deltas
+bind - Mean Squared Error: 1.044288337291413
+bind - R-squared: 0.2525171818374795
+delta_bind - Mean Squared Error: 1.0381922887270971
+delta_bind - R-squared: 0.25681829311954374
+expr - Mean Squared Error: 0.694250879480127
+expr - R-squared: 0.3638111479218682
+delta_expr - Mean Squared Error: 0.7045063645119496
+delta_expr - R-squared: 0.35441727014030966

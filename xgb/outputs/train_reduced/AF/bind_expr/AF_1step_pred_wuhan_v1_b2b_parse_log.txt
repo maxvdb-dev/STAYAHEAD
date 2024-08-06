@@ -1,0 +1,6 @@
+Best Parameters: {'booster': 'gbtree', 'lambda': 0.5078884594737042, 'alpha': 0.8487716031929651, 'subsample': 0.8057880954872416, 'colsample_bytree': 0.9704082551597126, 'max_depth': 6, 'min_child_weight': 8, 'eta': 0.08915526639825666, 'gamma': 0.8815029768020575, 'grow_policy': 'lossguide'}
+Scalers saved to ./outputs/train/AF/bind_expr
+bind - Mean Squared Error: 0.8859761739494805
+bind - R-squared: 0.3242054959319808
+expr - Mean Squared Error: 0.6375406339303737
+expr - R-squared: 0.4045589783452652

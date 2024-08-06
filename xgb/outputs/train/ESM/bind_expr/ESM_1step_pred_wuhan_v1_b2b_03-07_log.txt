@@ -1,0 +1,6 @@
+Best Parameters: {'booster': 'gbtree', 'lambda': 0.17662919850382985, 'alpha': 0.6049612661525001, 'subsample': 0.8187234426342052, 'colsample_bytree': 0.8703180977230583, 'max_depth': 11, 'min_child_weight': 7, 'eta': 0.04617364179182357, 'gamma': 0.029061919669103924, 'grow_policy': 'lossguide'}
+Scalers saved to ./outputs/train/ESM/bind_expr
+bind - Mean Squared Error: 1.0494239033901833
+bind - R-squared: 0.2488412359485066
+expr - Mean Squared Error: 0.6764936143196577
+expr - R-squared: 0.38008332628330643

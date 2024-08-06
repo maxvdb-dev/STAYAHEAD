@@ -1,0 +1,10 @@
+Best Parameters: {'booster': 'dart', 'lambda': 0.8716343367644597, 'alpha': 0.13770411040531255, 'subsample': 0.9114412067232619, 'colsample_bytree': 0.9262253276270329, 'max_depth': 7, 'min_child_weight': 10, 'eta': 0.06366650389689005, 'gamma': 0.08150941418871002, 'grow_policy': 'depthwise', 'sample_type': 'uniform', 'normalize_type': 'forest', 'rate_drop': 0.16309194236849922, 'skip_drop': 0.9938304106652341}
+Scalers saved to ./outputs/train/AF/bind_expr_deltas
+bind - Mean Squared Error: 0.880281840520042
+bind - R-squared: 0.3285489527303628
+delta_bind - Mean Squared Error: 0.8755034335666565
+delta_bind - R-squared: 0.3310943754372201
+expr - Mean Squared Error: 0.6244465805348662
+expr - R-squared: 0.41678837380098155
+delta_expr - Mean Squared Error: 0.6251200125158319
+delta_expr - R-squared: 0.41616055071516245

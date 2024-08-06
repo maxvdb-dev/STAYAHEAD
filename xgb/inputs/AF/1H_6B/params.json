@@ -1,0 +1,17 @@
+{
+    "booster": ["gbtree", "gblinear", "dart"],
+    "n_estimators": [750, 1000],
+    "lambda": [1e-8, 1.0],
+    "alpha": [1e-8, 1.0],
+    "subsample": [0.2, 1.0],
+    "colsample_bytree": [0.2, 1.0],
+    "max_depth": [3, 10],
+    "min_child_weight": [5, 10],
+    "eta": [1e-8, 1.0],
+    "gamma": [1e-8, 1.0],
+    "grow_policy": ["depthwise", "lossguide"],
+    "sample_type": ["uniform", "weighted"],
+    "normalize_type": ["tree", "forest"],
+    "rate_drop": [1e-8, 1.0],
+    "skip_drop": [1e-8, 1.0]
+}
